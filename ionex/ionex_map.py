@@ -8,40 +8,42 @@ Longitude = namedtuple('Longitude', ['lon1', 'lon2', 'dlon'])
 
 
 class IonexMap:
-    """Класс карты IONEX. Содержит карту и мета-данные.
-
-    Атрибуты:
-
-    :type grid: namedtuple
-    :param grid: определение сетки для карты, содержит два
-        ``namedtupla``:
-
-        - ``grid.latittude`` =
-          ``namedtuple('Latitude', ['lat1', 'lat2', 'dlat'])`` определение
-          сетки по широте от ``lat1`` до ``lat2`` с шагом ``dlat``;
-
-        - ``grid.longitude`` =
-          ``namedtuple('Longitude', ['lon1', 'lon2', 'dlon'])``
-          определение сетки по долготе от ``lon1`` до ``lon2`` с шагом
-          ``dlon``.
-
-    :type tec: list
-    :param tec: данные ПЭС; одномерный список, представляет собой
-        набор широтных "срезов" со значениями ПЭС.
-
-        Начало каждого среза соответствует широте ``grid.latitude.lat1``, конец
-        -- ``grid.latitude.lat2``, с шагом, равным
-        ``grid.latitude.dlat``.
-
-        Долгота первого среза соответствует ``grid.longitude.lon1``, долгота
-        последнего -- ``grid.longitude.lon2``, с шагом, равным
-        ``grid.longitude.dlon``.
-
-    :type height: float
-    :param height: высота, с которой ассоциированы данные карты.
-
-    :type epoch: datetime
-    :param epoch: дата и время карты ПЭС.
+    """IONEX card class. Contains map and meta data.
+    
+    Attributes:
+    
+    : type grid: namedtuple
+    
+    : param grid: a grid definition for the map, contains two
+        `` namedtupla``:
+    
+    - `` grid.latittude`` =
+          `` namedtuple ('Latitude', ['lat1', 'lat2', 'dlat']) 'definition
+          latitude grids from `` lat1 '' to `` lat2 '' with step `` dlat '';
+    
+    - `` grid.longitude`` =
+          `` namedtuple ('Longitude', ['lon1', 'lon2', 'dlon']) ''
+          longitude grid definition from `` lon1 '' to `` lon2 '' with a step
+          `` dlon``.
+    
+    : type tec: list
+    
+    : param tec: PES data; one-dimensional list, is
+        a set of latitudinal "slices" with TEC values.
+        The beginning of each slice corresponds to the latitude of `` grid.latitude.lat1 '', the end
+        - `` grid.latitude.lat2``, with a step equal to
+        `` grid.latitude.dlat``.
+        The longitude of the first slice corresponds to `` grid.longitude.lon1 '', longitude
+        the latter is `` grid.longitude.lon2 '', with a step equal to
+        `` grid.longitude.dlon``.
+    
+    : type height: float
+    
+    : param height: The height with which the map data is associated.
+    
+    : type epoch: datetime
+    
+    : param epoch: date and time of the PES map.
     """
 
     def __init__(self, *,
@@ -54,36 +56,36 @@ class IonexMap:
                  rms=None,
                  none_value=None):
         """
-        :param exponent:
-            ``int``, значение 'EXPONENT' из файла IONEX; степень,
-            в которую будут возведены значения ПЭС.
+       param exponent:
+            `` int``, value 'EXPONENT' from file IONEX; power,
+            into which the TEC values will be raised.
 
-        :param epoch:
-            ``datetime.datetime``, дата и время текущей карты.
+        : param epoch:
+            `` datetime.datetime``, the date and time of the current card.
 
-        :param longitude:
-            ``tuple``, определение сетки по широте, (lon1, lon2, dlon),
-            предполагается, что значения совпадают со значениями заголовка
-            'LON1 / LON2 / DLON' из файла IONEX.
+        : param longitude:
+            `` tuple``, latitude grid definition, (lon1, lon2, dlon),
+            values are assumed to be the same as header values
+            'LON1 / LON2 / DLON' from IONEX file.
 
-        :param latitude:
-           ``tuple``, определение сетки по широте, (lat1, lat2, dlat),
-           предполагается, что значения совпадают со значениями заголовка
-           'LAT1 / LAT2 / DLAT' из файла IONEX.
+        : param latitude:
+           `` tuple``, latitude grid definition, (lat1, lat2, dlat),
+           values are assumed to be the same as header values
+           'LAT1 / LAT2 / DLAT' from IONEX file.
 
-        :param height:
-            ``float``, высота текущей карты.
+        : param height:
+            float, the height of the current map.
 
-        :param tec:
-            ``list``, список значений ПЭС из файла IONEX.
+        : param tec:
+            `` list``, a list of PES values from the IONEX.
 
-        :param rms:
-            ``list``, список значений RMS из файла IONEX.
+        : param rms:
+            `` list``, a list of RMS values from the IONEX file.
 
-        :param none_value:
-            ``int``, значения в карте, равные ``none_value`` будут заменены на
-            ``None``. По умолчанию ``none_value`` == None, в таком случае
-            никакие замены производится не будут.
+        : param none_value:
+            `` int``, values in the map equal to `` none_value`` will be replaced with
+            `` None``. By default, none_value == None, in which case
+            no replacement will be made.
         """
         self.epoch = epoch
         self.height = height
