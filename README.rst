@@ -2,107 +2,107 @@
 ionex
 =====
 
-Модуль для чтения карт в формате IONEX.
+IONEX card reader.
 
 
 *************
-Использование
+Using
 *************
 
-Коротко
+Short
 -------
 
 ::
 
     import ionex
 
-    with open('igsg0010.00i') as file:
-        inx = ionex.reader(file)
+    with open ('igsg0010.00i') as file:
+        inx = ionex.reader (file)
         for ionex_map in inx:
-            print(ionex_map.epoch)
-            print(ionex_map.tec)
+            print (ionex_map.epoch)
+            print (ionex_map.tec)
 
 
-Содержание модуля
+Module content
 ------------------
 
 
 ~~~~~~~~~~~~~~~~~~~~
-`ionex.reader(file)`
+`ionex.reader (file)`
 ~~~~~~~~~~~~~~~~~~~~
 
-Возвращает читалку файла в формате IONEX. Читалка - итерируемый объект, который
-на каждой итерации возвращает экземпляр `IonexMap` очередной карты, прочитанной
-из файла.
+Returns the file reader in IONEX format. The reader is an iterable object that
+at each iteration, returns an instance of `IonexMap` of the next map read
+from file.
 
-**Параметры**
+**Parameters**
 
-- `file`: `str` | `file`, путь к файлу IONEX или объект файла.
+- `file`:` str` | `file`, the path to an IONEX file, or a file object.
 
-**Исключения**
+** Exceptions **
 
-- `IONEXError`, неизвестный тип или версия переданного файла.
-- `IONEXUnexpectedEnd`, неполный файл.
-- `IONEXMapError`, ошибки при обработке карты.
+- `IONEXError`, unknown type or version of file transferred.
+- `IONEXUnexpectedEnd` incomplete file.
+- `IONEXMapError`, errors while processing the map.
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~
 `class ionex.IonexMap`
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Класс карты IONEX, содержит карту значений ПЭС и мета-данные.
+Map class IONEX, contains a map of TEC values ​​and metadata.
 
-**Атрибуты**
+** Attributes **
 
 
-- `grid`: `namedtuple`, определение сетки для карты, содержит два `namedtupla`:
+- `grid`:` namedtuple`, a grid definition for the map, contains two `namedtupla`:
 
-  - `grid.latittude` = `namedtuple('Latitude', ['lat1', 'lat2', 'dlat'])`
-    определение сетки по широте от `lat1` до `lat2` с шагом `dlat`;
+  - `grid.latittude` =` namedtuple ('Latitude', ['lat1', 'lat2', 'dlat']) `
+    defining latitude grid from `lat1` to` lat2` with step `dlat`;
 
-  - `grid.longitude` = `namedtuple('Longitude', ['lon1', 'lon2', 'dlon'])`
-    определение сетки по долготе от `lon1` до `lon2` с шагом `dlon`.
+  - `grid.longitude` =` namedtuple ('Longitude', ['lon1', 'lon2', 'dlon']) `
+    defining a grid in longitude from `lon1` to` lon2` with a step `dlon`.
 
-- `tec`: `list`, данные ПЭС; одномерный список, представляет собой
-  набор широтных "срезов" со значениями ПЭС.
+- `tec`:` list`, PES data; one-dimensional list, is
+  a set of latitudinal "slices" with TEC values.
 
-  Начало каждого среза соответствует широте `grid.latitude.lat1`, конец --
-  `grid.latitude.lat2`, с шагом, равным `grid.latitude.dlat`.
+  The beginning of each slice corresponds to the latitude of `grid.latitude.lat1`, the end -
+  `grid.latitude.lat2`, with a step equal to` grid.latitude.dlat`.
 
-  Долгота первого среза соответствует `grid.longitude.lon1`, долгота
-  последнего -- `grid.longitude.lon2`, с шагом, равным `grid.longitude.dlon`.
+  The longitude of the first slice corresponds to `grid.longitude.lon1`, longitude
+  the latter is `grid.longitude.lon2`, with a step equal to` grid.longitude.dlon`.
 
-- `height`: `float`, высота, с которой ассоциированы данные карты.
+- `height`:` float`, the height with which the map data is associated.
 
-- `epoch`: `datetime`, дата и время карты ПЭС.
+- `epoch`:` datetime`, date and time of the PES map.
 
 *********
-Установка
+Installation
 *********
 
-Сейчас лучше устанавливать в editable-mode::
+Now it's better to set to editable-mode ::
 
-    $ pip install -e git+https://github.com/gnss-lab/ionex.git#egg=ionex
+    $ pip install -e git + https: //github.com/gnss-lab/ionex.git#egg=ionex
 
 
 ******
-Ошибки
+Errors
 ******
 
-Ошибки стоит оформлять на `issues <https://github.com/gnss-lab/ionex/issues>`_.
+Bugs should be filed at `issues <https://github.com/gnss-lab/ionex/issues>` _.
 
-Как оформить ошибку:
+How to file an error:
 
-- опишите, как её можно воспроизвести;
-- приложите файлы IONEX, при обработке которых возникла
-  ошибка или укажите ссылку на эти файлы.
+- describe how it can be reproduced;
+- attach the IONEX files, during the processing of which the
+  error or provide a link to these files.
 
 ********
-Лицензия
+License
 ********
 
 Distributed under the terms of the
-`MIT <https://github.com/gnss-lab/gnss-tec/blob/master/LICENSE.txt>`_
+`MIT <https://github.com/gnss-lab/gnss-tec/blob/master/LICENSE.txt>` _
 license, gnss-tec is free and open source software.
 
 Copyright Ilya Zhivetiev, 2018.
