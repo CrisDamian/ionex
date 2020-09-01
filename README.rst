@@ -2,11 +2,11 @@
 ionex
 =====
 
-IONEX card reader.
+IONEX file reader.
 
 
 *************
-Using
+Usage
 *************
 
 Short
@@ -82,7 +82,7 @@ Installation
 
 Now it's better to set to editable-mode ::
 
-    $ pip install -e git + https: //github.com/gnss-lab/ionex.git#egg=ionex
+    $ pip install -e git + https: //github.com/CrisDamian/ionex.git#egg=ionex
 
 
 ******
